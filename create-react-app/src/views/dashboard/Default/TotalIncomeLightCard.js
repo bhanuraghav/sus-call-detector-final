@@ -9,10 +9,12 @@ import MainCard from 'ui-component/cards/MainCard';
 import TotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
-import StorefrontTwoToneIcon from '@mui/icons-material/StorefrontTwoTone';
+import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 
 // styles
 const CardWrapper = styled(MainCard)(({ theme }) => ({
+  backgroundColor: theme.palette.error.main,
+  color: theme.palette.primary.light,
   overflow: 'hidden',
   position: 'relative',
   '&:after': {
@@ -57,11 +59,11 @@ const TotalIncomeLightCard = ({ isLoading }) => {
                     sx={{
                       ...theme.typography.commonAvatar,
                       ...theme.typography.largeAvatar,
-                      backgroundColor: theme.palette.warning.light,
-                      color: theme.palette.warning.dark
+                      backgroundColor: theme.palette.secondary[800],
+                      color: '#fff'
                     }}
                   >
-                    <StorefrontTwoToneIcon fontSize="inherit" />
+                    <TableChartOutlinedIcon fontSize="inherit" />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
@@ -70,16 +72,14 @@ const TotalIncomeLightCard = ({ isLoading }) => {
                     mt: 0.45,
                     mb: 0.45
                   }}
-                  primary={<Typography variant="h4">$203k</Typography>}
+                  primary={
+                    <Typography variant="h4" sx={{ color: '#fff' }}>
+                      50,328
+                    </Typography>
+                  }
                   secondary={
-                    <Typography
-                      variant="subtitle2"
-                      sx={{
-                        color: theme.palette.grey[500],
-                        mt: 0.5
-                      }}
-                    >
-                      Total Income
+                    <Typography variant="subtitle2" sx={{ color: 'primary.light', mt: 0.25 }}>
+                      Total Users Suspected (Monthly)
                     </Typography>
                   }
                 />
