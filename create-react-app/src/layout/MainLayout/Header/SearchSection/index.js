@@ -17,6 +17,8 @@ import Transitions from 'ui-component/extended/Transitions';
 import { IconSearch, IconX } from '@tabler/icons';
 import { shouldForwardProp } from '@mui/system';
 
+import { fetchData } from './finalData.js';
+
 // styles
 const PopperStyle = styled(Popper, { shouldForwardProp })(({ theme }) => ({
   zIndex: 1100,
@@ -67,15 +69,27 @@ const MobileSearch = ({ value, setValue, popupState }) => {
   const [rowData, setRowData] = useState([]);
 
   const handleOnClick = () => {
-    fetch('http://localhost:9001/sus/body')
-      .then((res) => res.json())
-      .then((data) => setRowData(data));
-
+    //   fetch('http://localhost:9001/sus/body')
+    //     .then((res) => res.json())
+    //     .then((data) => setRowData(data));
+    const rowDataTemp = [];
+    for (const key in fetchData) {
+      const data = {
+        callId: key,
+        ...fetchData[key]
+      };
+      rowDataTemp.push(data);
+    }
+    setRowData(rowDataTemp);
     setShowOverlay(true);
   };
 
   // Each Column Definition results in one Column.
-  const columnDefs = [{ field: 'make', filter: true }, { field: 'model', filter: true }, { field: 'price' }];
+  const columnDefs = [
+    { field: 'callId', filter: true },
+    { field: 'tokens', filter: true },
+    { field: 'users', width: 300 }
+  ];
 
   const handleClose = () => {
     setShowOverlay(false);
@@ -143,7 +157,7 @@ const MobileSearch = ({ value, setValue, popupState }) => {
             Search Result Grid
           </Typography>
           <div style={{ height: 400, width: '100%' }}>
-            <DataGrid rows={rowData} columns={columnDefs} getRowId={(row) => row.make} />
+            <DataGrid rows={rowData} columns={columnDefs} getRowId={(row) => row.callId} />
           </div>
         </Box>
       </Modal>
@@ -166,15 +180,28 @@ const SearchSection = () => {
   const [rowData, setRowData] = useState([]);
 
   const handleOnClick = () => {
-    fetch('http://localhost:9001/sus/body')
-      .then((res) => res.json())
-      .then((data) => setRowData(data));
+    // fetch('http://localhost:9001/sus/body')
+    //   .then((res) => res.json())
+    //   .then((data) => setRowData(data));
 
+    const rowDataTemp = [];
+    for (const key in fetchData) {
+      const data = {
+        callId: key,
+        ...fetchData[key]
+      };
+      rowDataTemp.push(data);
+    }
+    setRowData(rowDataTemp);
     setShowOverlay(true);
   };
 
   // Each Column Definition results in one Column.
-  const columnDefs = [{ field: 'make', filter: true }, { field: 'model', filter: true }, { field: 'price' }];
+  const columnDefs = [
+    { field: 'callId', filter: true },
+    { field: 'tokens', filter: true },
+    { field: 'users', width: 300 }
+  ];
 
   const handleClose = () => {
     setShowOverlay(false);
@@ -263,7 +290,7 @@ const SearchSection = () => {
               Search Result Grid
             </Typography>
             <div style={{ height: 400, width: '100%' }}>
-              <DataGrid rows={rowData} columns={columnDefs} getRowId={(row) => row.make} />
+              <DataGrid rows={rowData} columns={columnDefs} getRowId={(row) => row.callId} />
             </div>
           </Box>
         </Modal>
